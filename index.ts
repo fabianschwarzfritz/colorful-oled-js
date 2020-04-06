@@ -52,6 +52,12 @@ enum Command {
     ACTIVATE_SCROLLING = 0x2F,
 }
 
+enum DefaultColors {
+    RED = 0xF00,
+    GREEN = 0x0F0,
+    BLUE = 0x00F,
+}
+
 class ColorfulOled {
     private readonly board: Board
     private readonly ADDRESS: number
