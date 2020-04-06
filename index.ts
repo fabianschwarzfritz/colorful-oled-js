@@ -65,6 +65,44 @@ class ColorfulOled {
     public constructor(board: Board, address: number) {
         this.board = board
         this.ADDRESS = address
+        this._initialize()
+    }
+
+    private _initialize() {
+        // TODO check initalization routine when hardware has arrived.
+        // Routine template: https://github.com/Seeed-Studio/RGB_OLED_SSD1331/blob/master/SSD1331.cpp
+        this._transferCommand(Command.SET_DISPLAY_OFF)
+        this._transferCommand(Command.SET_CONTRAST_COLOR_A, 0x91)
+        this._transferCommand(Command.SET_CONTRAST_COLOR_B, 0x50)
+        this._transferCommand(Command.SET_CONTRAST_COLOR_C, 0x7D)
+        this._transferCommand(Command.MASTER_CURRENT_CONTROL, 0x06)
+        this._transferCommand(Command.SET_SECOND_PRE_CHARGE_SPEED_A, 0x64)
+        this._transferCommand(Command.SET_SECOND_PRE_CHARGE_SPEED_B, 0x78)
+        this._transferCommand(Command.SET_SECOND_PRE_CHARGE_SPEED_C, 0x64)
+        this._transferCommand(Command.REMAP_AND_COLOR_DEPTH, 0x72)
+        this._transferCommand(Command.SET_DISPLAY_START_LINE, 0x0)
+        this._transferCommand(Command.SET_DISPLAY_OFFSET, 0x0)
+        this._transferCommand(Command.SET_DISPLAY_MODE_NORMAL)
+        this._transferCommand(Command.SET_MULTIPLEX_RATIO, 0x3F)
+        this._transferCommand(Command.SET_MASTER_CONFIGURATION, 0x8E)
+        this._transferCommand(Command.POWER_SAVE_MODE, 0x00)
+        this._transferCommand(Command.PHASE_PERIOD_ADJUSTMENT, 0x31)
+        this._transferCommand(Command.DISPLAY_CLOCK_DIVIDER, 0xF0)
+        this._transferCommand(Command.SET_PRECHARGE_LEVEL, 0x3A)
+        this._transferCommand(Command.SET_VOLTAGE, 0x3E)
+        this._transferCommand(Command.DEACTIVATE_SCROLLING)
+        this._transferCommand(Command.SET_DISPLAY_ON_NORMAL_MODE)
+    }
+
+    private _transferCommand(command: number, value?: number) {
+        this._transfer(TransferType.Command, command);
+        if(value) {
+            this._transfer(TransferType.Command, value);
+        }
+    }
+
+    private _transferData(value: number) {
+        this._transfer(TransferType.Data, value);
     }
 
     private _transfer(type: TransferType, transferValue: number): void {
@@ -78,10 +116,10 @@ class ColorfulOled {
     }
 
     public turnOffDisplay (): void {
-        this._transfer(TransferType.Command, Command.SET_DISPLAY_OFF)
+        this._transferCommand(Command.SET_DISPLAY_OFF)
     }
 
     public turnOnDisplay (): void {
-        this._transfer(TransferType.Command, Command.SET_DISPLAY_ON_NORMAL_MODE)
+        this._transferCommand(Command.SET_DISPLAY_ON_NORMAL_MODE)
     }
 }
