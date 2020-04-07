@@ -4,7 +4,7 @@
   "description": "johnny-five library for oled devices with color screens",
   "main": "build/index.js",
   "scripts": {
-    "start": "npm run build && node build/index.js",
+    "start": "npm run build && node build/playground.js",
     "build": "./node_modules/typescript/bin/tsc",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -19,5 +19,8 @@
     "typescript": "^3.8.3"
   },
   "author": "Fabian Schwarz-Fritz",
-  "license": "MIT"
+  "license": "MIT",
+  "devDependencies": {
+    "johnny-five": "^1.4.0"
+  }
 }

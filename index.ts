@@ -52,19 +52,28 @@ enum Command {
     ACTIVATE_SCROLLING = 0x2F,
 }
 
-enum DefaultColors {
+export enum DefaultColors {
     RED = 0xF00,
     GREEN = 0x0F0,
     BLUE = 0x00F,
 }
 
-class ColorfulOled {
+interface Options {
+    width: number;
+    height: number;
+}
+
+export class ColorfulOled {
     private readonly board: Board
     private readonly ADDRESS: number
+    private readonly WIDTH: number
+    private readonly HEIGHT: number
 
-    public constructor(board: Board, address: number) {
+    public constructor(board: Board, address: number, options: Options) {
         this.board = board
         this.ADDRESS = address
+        this.WIDTH = options.width || 128
+        this.HEIGHT = options.height || 128
         this._initialize()
     }
 
@@ -115,11 +124,20 @@ class ColorfulOled {
         })
     }
 
-    public turnOffDisplay (): void {
+    public drawPixel(x: number,  y: number, color: DefaultColors): void {
+        if (x < 0 || this.WIDTH <= x  || y < 0 || this.HEIGHT <= y) {
+            throw new Error("Invalid x or y position")
+        }
+        this._transferCommand(Command.SET_COLUMN_START_ADDRESS, x);
+        this._transferCommand(Command.SET_ROW_START_ADDRESS, y);
+        this._transferData(color);
+    }
+
+    public turnOffDisplay(): void {
         this._transferCommand(Command.SET_DISPLAY_OFF)
     }
 
-    public turnOnDisplay (): void {
+    public turnOnDisplay(): void {
         this._transferCommand(Command.SET_DISPLAY_ON_NORMAL_MODE)
     }
 }
