@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npm run build && node build/playground.js",
     "build": "./node_modules/typescript/bin/tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npm run build && ./node_modules/mocha/bin/mocha build/test/test.js"
   },
   "keywords": [
     "johnny-five",
@@ -21,6 +21,8 @@
   "author": "Fabian Schwarz-Fritz",
   "license": "MIT",
   "devDependencies": {
-    "johnny-five": "^1.4.0"
+    "johnny-five": "^1.4.0",
+    "@types/mocha": "^7.0.2",
+    "mocha": "^7.1.1"
   }
 }

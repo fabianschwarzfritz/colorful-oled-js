@@ -12,5 +12,6 @@
     "include": [
       "index.ts",
       "playground.ts",
+      "test/test.ts",
     ]
   }
