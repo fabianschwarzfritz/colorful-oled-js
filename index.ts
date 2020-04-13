@@ -133,6 +133,28 @@ export class ColorfulOled {
         this._transferData(color);
     }
 
+    public drawLine(x0: number, y0: number, x1: number, y1: number, color: DefaultColors): void {
+        if (x0 < 0 || this.WIDTH <= x0) {
+            throw new Error("Invalid x0 position")
+        }
+        if (y0 < 0 || this.HEIGHT <= y0) {
+            throw new Error("Invalid y0 position")
+        }
+        if (x1 < 0 || this.WIDTH <= x1) {
+            throw new Error("Invalid x1 position")
+        }
+        if (y1 < 0 || this.HEIGHT <= y1) {
+            throw new Error("Invalid y1 position")
+        }
+
+        this._transferCommand(Command.DRAW_LINE);
+        this._transferData(x0);
+        this._transferData(y0);
+        this._transferData(x1);
+        this._transferData(y1);
+        this._transferData(color);
+    }
+
     public turnOffDisplay(): void {
         this._transferCommand(Command.SET_DISPLAY_OFF)
     }
