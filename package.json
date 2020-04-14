@@ -21,8 +21,9 @@
   "author": "Fabian Schwarz-Fritz",
   "license": "MIT",
   "devDependencies": {
-    "johnny-five": "^1.4.0",
     "@types/mocha": "^7.0.2",
-    "mocha": "^7.1.1"
+    "johnny-five": "^1.4.0",
+    "mocha": "^7.1.1",
+    "sinon": "^9.0.2"
   }
 }

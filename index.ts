@@ -59,8 +59,8 @@ export enum DefaultColors {
 }
 
 interface Options {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
 }
 
 export class ColorfulOled {
